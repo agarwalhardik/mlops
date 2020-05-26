@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 
 from keras.datasets import mnist
 
@@ -52,43 +50,26 @@ X_train.shape
 y_train.shape
 
 from keras.utils.np_utils import to_categorical
-
 y_train_cat = to_categorical(y_train)
-
 y_train_cat
-
 y_train_cat[7]
-
 from keras.models import Sequential
-
 from keras.layers import Dense
-
 model = Sequential()
-
 model.add(Dense(units=512, input_dim=28*28, activation='relu'))
-
 model.add(Dense(units=256, activation='relu'))
-
 model.add(Dense(units=128, activation='relu'))
-
 model.add(Dense(units=128, activation='relu'))
-
 model.add(Dense(units=10, activation='softmax'))
-
 model.summary()
-
 from keras.optimizers import RMSprop
-
-
 model.compile(optimizer=RMSprop(), loss='categorical_crossentropy', 
              metrics=['accuracy']
              )
-
-h = model.fit(X_train, y_train_cat, epochs=50)
-
+h = model.fit(X_train, y_train_cat, epochs=2)
 import os
-accuracy = (model.history['accuracy'][-1][0])*100
-if int(accuracy) < 80:
+accuracy = h.history['accuracy'][-1] * 100
+if int(accuracy) < 95:
 	print("accuracy : ",accuracy)
 	os.system('curl --user "admin:hardik" 192.168.43.8:8080/job/mlops3/build?token=modify')
 else:
