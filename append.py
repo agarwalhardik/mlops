@@ -1,0 +1,6 @@
+fin = open("/root/accuracy.txt", "r")
+data = fin.read()
+fin.close()
+fout = open("/root/mlops_model.py", "a")
+fout.write(data)
+fout.close()
