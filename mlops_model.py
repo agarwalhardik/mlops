@@ -42,12 +42,3 @@ model.compile(optimizer=RMSprop(), loss='categorical_crossentropy',
              metrics=['accuracy']
              )
 h = model.fit(X_train, y_train_cat, epochs=2)
-import os
-accuracy = h.history['accuracy'][-1] * 100
-if int(accuracy) < 90:
-	print("accuracy : ",accuracy)
-	os.system('curl --user "admin:hardik" 192.168.43.8:8080/job/mlops3/build?token=modify')
-else:
-	print("accuracy : ",accuracy)
-	os.system('curl --user "admin:hardik" 192.168.43.8:8080/job/mlops4/build?token=mail')
-
